@@ -237,7 +237,7 @@ class ListPicker:
         max_vlen = max([len(v) for v in vals])
         max_width = max(max_klen + max_vlen + 3, len(HELP_ANYKEY))
 
-        lines = [f"%-{max_klen}s │ %-{max_vlen}s" % (k, v) for k, v in zip(keys, vals)]
+        lines = [f"%-{max_klen}s │ %-{max_vlen}s" % (k, v) for k, v in zip(keys, vals, strict=False)]
         lines.append("")
         lines.append(CSI_SGR % (SGR_HELP, HELP_ANYKEY.center(max_width)))
 
@@ -479,7 +479,6 @@ class ListPicker:
             self._state = ListPickerState.ACTIVE
 
             while self._state.value >= ListPickerState.ACTIVE.value:
-                # try/except in a loop body has zero overhead in Python 3.11
                 try:
                     self._draw()
                     key = keyboard.getkey(self._infile)
@@ -487,7 +486,7 @@ class ListPicker:
                     if key is not None:
                         self._handle_input(key)
 
-                except KeyboardInterrupt:
+                except KeyboardInterrupt:  # try/except in a loop body has zero overhead in Python 3.11+ # noqa: PERF203
                     # Catch SIGINT here instead of using an asynchronous signal handler
                     # that will be hard to coordinate with this main thread
                     self._handle_input("Ctrl-C")

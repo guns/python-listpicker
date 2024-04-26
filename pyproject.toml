@@ -1,11 +1,11 @@
 [build-system]
-requires = ["hatchling", "hatch-vcs"]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
 name = "listpicker"
 description = "Interactive list selection and multiselect for POSIX terminals (non-curses)"
-dynamic = ["version"]
+version = "0.0.0a1"
 authors = [
     {name = "Sung Pae", email = "self@sungpae.com"},
 ]
@@ -39,6 +39,3 @@ dev = [
 [project.urls]
 Homepage = "https://github.com/guns/python-listpicker"
 Repository = "https://github.com/guns/python-listpicker.git"
-
-[tool.hatch.version]
-source = "vcs"

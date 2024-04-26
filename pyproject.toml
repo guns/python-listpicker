@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "listpicker"
+description = "Interactive list selection and multiselect for POSIX terminals (non-curses)"
+dynamic = ["version"]
+authors = [
+    {name = "Sung Pae", email = "self@sungpae.com"},
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: User Interfaces",
+    "Topic :: Terminals",
+]
+keywords = [
+    "list selection",
+    "multiple select",
+    "multiselect",
+]
+dependencies = [
+    "regex",
+]
+
+[project.optional-dependencies]
+dev = [
+    "types-regex",
+]
+
+[project.urls]
+Homepage = "https://github.com/guns/python-listpicker"
+Repository = "https://github.com/guns/python-listpicker.git"
+
+[tool.hatch.version]
+source = "vcs"

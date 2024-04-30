@@ -3,6 +3,10 @@ python-listpicker
 
 Interactive list selection for POSIX terminals.
 
+```python
+pip install listpicker
+```
+
 Python 3.10+
 
 Features

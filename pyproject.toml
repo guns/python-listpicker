@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "listpicker"
 description = "Interactive list selection and multiselect for POSIX terminals (non-curses)"
-version = "0.0.0a1"
+version = "0.1.0"
 authors = [
     {name = "Sung Pae", email = "self@sungpae.com"},
 ]

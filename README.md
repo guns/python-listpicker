@@ -8,7 +8,7 @@ Python 3.10+
 Features
 --------
 
-- Single and multiple selection from a list of strings
+- Single and multiple selection from a sequence of strings
 - Interactive substring filtering
 - Paging for long lists
 - Common navigation keybindings (vi, emacs, arrow keys, Home/End, etc)

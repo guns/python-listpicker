@@ -68,6 +68,7 @@ class NonCanonicalModeTerminalWrapper:
 
     def __exit__(self, *_args: object) -> None:
         termios.tcsetattr(self._file.fileno(), termios.TCSAFLUSH, self._old_attrs)
+        self._old_attrs.clear()
 
 
 def getkey(file: TextIO) -> Optional[str]:

@@ -50,7 +50,7 @@ NAMED_KEY_BY_CODE = {
 }
 
 
-class NonCanonicalModeTerminalWrapper:
+class NonCanonicalModeTerminalInput:
     _file: TextIO
     _old_attrs: list[Any]
 
@@ -72,7 +72,7 @@ class NonCanonicalModeTerminalWrapper:
 
 
 def getkey(file: TextIO) -> Optional[str]:
-    with NonCanonicalModeTerminalWrapper(file) as f:
+    with NonCanonicalModeTerminalInput(file) as f:
         ch = f.read(1)
 
         if ch == "\x1b":

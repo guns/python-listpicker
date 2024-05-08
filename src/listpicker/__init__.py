@@ -67,6 +67,7 @@ def pick_multiple(
     *,
     force_prompt: bool = False,
     minimum: int = 1,
+    preselected: Optional[Sequence[str]] = None,
     infile: TextIO = sys.stdin,
     outfile: TextIO = sys.stdout,
 ) -> list[str]:
@@ -75,10 +76,20 @@ def pick_multiple(
     the same options are returned in a new list without prompting the user.
     Pass force_prompt=True to always prompt the user when len(options) == minimum.
 
+    Preselected options can be passed with the "preselected" keyword argument.
+
     This function always returns a new list that contains a subsequence of
     "options" (i.e. same ordering).
     """
     if len(options) < minimum or len(options) == minimum and not force_prompt:
         return list(options)
 
-    return ListPicker(prompt, options, multiselect=True, minimum=minimum, infile=infile, outfile=outfile).pick()
+    return ListPicker(
+        prompt,
+        options,
+        multiselect=True,
+        minimum=minimum,
+        preselected=preselected,
+        infile=infile,
+        outfile=outfile,
+    ).pick()

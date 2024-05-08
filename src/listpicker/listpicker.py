@@ -167,6 +167,7 @@ class ListPicker:
         *,
         multiselect: bool = False,
         minimum: int = 0,
+        preselected: Optional[Sequence[str]] = None,
         infile: TextIO = sys.stdin,
         outfile: TextIO = sys.stdout,
     ):
@@ -179,6 +180,7 @@ class ListPicker:
         self._infile = infile
         self._outfile = outfile
         self._selected_options = set()
+        self._preselected_options = set(preselected) if preselected else set()
         self._option_window = range(len(self._all_options))
 
         if self._multiselect_minimum > 0:
@@ -186,6 +188,13 @@ class ListPicker:
                 raise ValueError("minimum > 0 has no effect unless multiselect=True")
             if len(self._all_options) < self._multiselect_minimum:
                 raise ValueError("not enough options to satisfy minimum constraint")
+
+        if self._preselected_options:
+            if not self._multiselect:
+                raise ValueError("preselected options require multiselect=True")
+
+            if invalid_options := self._preselected_options - set(options):
+                raise ValueError(f"unknown preselected options: {invalid_options!r}")
 
     @property
     def _header_height(self) -> int:
@@ -491,6 +500,7 @@ class ListPicker:
 
     def _run(self) -> None:
         self._selected_options.clear()
+        self._selected_options.update(o for o in self._all_options if o.value in self._preselected_options)
         self._set_filter("")
         self._columns, self._lines = os.get_terminal_size(self._outfile.fileno())
 

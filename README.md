@@ -21,6 +21,7 @@ Features
 - Proper truncation of long lines with SGR color sequences
 - Redraw on terminal resize (SIGWINCH)
 - Help menu and multiselect confirmation prompt
+- Preselected options in multiselect prompts
 
 Screenshots
 -----------

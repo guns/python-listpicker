@@ -21,10 +21,10 @@
 # IN THE SOFTWARE.
 
 import dataclasses
-import enum
 import os
 import signal
 import sys
+from enum import Enum, auto
 from typing import Any, Optional, Sequence, TextIO
 
 from . import keyboard, util
@@ -34,26 +34,24 @@ UI_KEY_NAMES = {
     "Delete": "Backspace",
 }
 
-Action = enum.Enum(
-    "Action",
-    (
-        "UP",
-        "DOWN",
-        "PAGE_UP",
-        "PAGE_DOWN",
-        "TOP",
-        "BOTTOM",
-        "HELP",
-        "FILTER",
-        "ERASE",
-        "ERASE_LINE",
-        "TOGGLE",
-        "TOGGLE_ALL",
-        "ACCEPT",
-        "SUBMIT",
-        "CANCEL",
-    ),
-)
+
+class Action(Enum):
+    UP = auto()
+    DOWN = auto()
+    PAGE_UP = auto()
+    PAGE_DOWN = auto()
+    TOP = auto()
+    BOTTOM = auto()
+    HELP = auto()
+    FILTER = auto()
+    ERASE = auto()
+    ERASE_LINE = auto()
+    TOGGLE = auto()
+    TOGGLE_ALL = auto()
+    ACCEPT = auto()
+    SUBMIT = auto()
+    CANCEL = auto()
+
 
 ACTION_KEYS = {
     Action.UP: ("Up", "k", "Ctrl-P"),
@@ -112,10 +110,14 @@ PANEL_WIDTH_PCT = PHI - 1  # ᵠ⁻¹
 TOP_MARGIN_PCT = 2 - PHI  # 1 - ᵠ⁻¹
 
 
-ListPickerState = enum.Enum(
-    "ListPickerState",
-    ("CANCELLED", "INACTIVE", "ACTIVE", "FILTERING", "HELP", "INFO", "CONFIRMATION"),
-)
+class ListPickerState(Enum):
+    CANCELLED = auto()
+    INACTIVE = auto()
+    ACTIVE = auto()
+    FILTERING = auto()
+    HELP = auto()
+    INFO = auto()
+    CONFIRMATION = auto()
 
 
 @dataclasses.dataclass(frozen=True)

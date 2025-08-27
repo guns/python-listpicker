@@ -337,6 +337,9 @@ class ListPicker:
 
             if i == self._index:
                 line = "> " + option.format(self._option_index_width, checked=checked)
+                # Replace all SGR resets in this line with SGR_CURRENT_SELECTION style so
+                # that SGR sequences within the string do not reset our style.
+                line = util.CSI_SGR_RESET_REGEX.sub(f"\x1b[{SGR_CURRENT_SELECTION}m", line)
                 out.append(CSI_SGR % (SGR_CURRENT_SELECTION, line[: self._columns]))
             else:
                 line = "  " + option.format(self._option_index_width, checked=checked)

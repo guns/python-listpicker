@@ -129,7 +129,7 @@ class Option:
         if "\n" in self.value:
             raise ValueError(f"Option value must not contain a newline: ${self.value}")
 
-    def format(self, number_width: int, checked: Optional[bool]) -> str:
+    def format(self, number_width: int, *, checked: Optional[bool]) -> str:
         checkbox: str
 
         match checked:

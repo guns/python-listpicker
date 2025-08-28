@@ -29,21 +29,19 @@ CSI_SGR_RESET_REGEX = regex.compile(
     (?:
         0*                  # Empty or just zeros: m, 0m, 00m
         |
-        (?:                 # Extended color sequences can end with ;0 in RGB/palette formats,
-                            # so exclude them to avoid false matches on actual color settings
-            (?!
-                (?:3|4|5|10)[89] # Negative lookahead to exclude extended color codes:
-                                 # 38/39: foreground color (256-color or RGB)
-                                 # 48/49: background color (256-color or RGB)
-                                 # 58/59: underline color (less common)
-                                 # 108/109: bright foreground/background (rare)
+        [0-9;]*             # Any SGR codes...
+        (?:
+            (?<!            # NOT preceded by:
+                \b(?:3|4|5|10)[89];2;[0-9]+;[0-9]+  # RGB format: 38;2;R;G where the following ;0 would be
+                                                    # the blue component, not a reset
+                |
+                \b(?:3|4|5|10)[89];5                # 256-color format: 38;5 where the following ;0 would be
+                                                    # the color index, not a reset
             )
-            [0-9]+
-            (?:[;:]|$)      # Must be followed by semicolon, colon, or end
-        )*
-        [;:]?0*             # Ending with optional semicolon/colon and zeros: ;0m, :0m, ;00m, ;m
-        |
-        [0-9:;]*;+          # Any digits/colons/semicolons followed by semicolons: 1;m, ;m, ;;m
+            ;0+             # ...ending with ;0, ;00, etc.
+            |
+            ;+              # Or just semicolons: ;m, ;;m
+        )
     )m
     """,
     regex.VERBOSE,
